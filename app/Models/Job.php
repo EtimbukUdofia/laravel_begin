@@ -17,4 +17,9 @@ class Job extends Model  // We extend model to create an Eloqent model
   {
     return $this->belongsTo(Employer::class);
   }
+
+  public function tags()
+  {
+    return $this->belongsToMany(Tag::class, foreignPivotKey: 'job_listing_id');
+  }
 }
