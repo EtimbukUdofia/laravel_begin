@@ -12,4 +12,9 @@ class Job extends Model  // We extend model to create an Eloqent model
   protected $table = "job_listings";
 
   protected $fillable = ['title', 'salary'];
+
+  public function employer()
+  {
+    return $this->belongsTo(Employer::class);
+  }
 }
