@@ -8,17 +8,33 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', function () {
-    $jobs = Job::with('employer')->simplePaginate(4); // solves the n + 1 problem; Eager Loading
+    $jobs = Job::with('employer')->latest()->simplePaginate(4); // ::with solves the n + 1 problem; Eager Loading
 
-    return view('jobs', [
+    return view('jobs.index', [
         'jobs' => $jobs
     ]);
+});
+
+Route::get('/jobs/create', function () {
+    return view('jobs.create');
 });
 
 Route::get('/jobs/{id}', function ($id) {
     $job = Job::find($id);
 
-    return view('job', ['job' => $job]);
+    return view('jobs.show', ['job' => $job]);
+});
+
+Route::post('/jobs', function(){
+    // Validation
+
+    Job::create([
+        'title' => request('title'),
+        'salary' => request('salary'),
+        'employer_id' => 1
+    ]);
+
+    return redirect('/jobs');
 });
 
 Route::get('/contact', function () {
