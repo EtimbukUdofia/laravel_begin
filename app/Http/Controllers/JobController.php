@@ -49,8 +49,6 @@ class JobController extends Controller
 
     public function update(Job $job)
     {
-        // authorize
-
         request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required'],
@@ -66,8 +64,6 @@ class JobController extends Controller
 
     public function destroy(Job $job)
     {
-        // authorize
-
         $job->delete();
 
         return redirect('/jobs');
